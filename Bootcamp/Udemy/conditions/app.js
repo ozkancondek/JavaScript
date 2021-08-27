@@ -9,7 +9,7 @@ console.log(4 !== "4"); // true
 // logical conjunctions
 console.log(! true); // ! = not
 console.log(true && true);  //&&=and
-console.log(false || true); // ||=or
+console.log(false || true); // ||=or 
 
 // conditions
 
