@@ -19,5 +19,5 @@
      }
     
   };
-  console.log(rangeOfNumbers(1,9))
+  console.log(rangeOfNumbers(1,9)) 
  

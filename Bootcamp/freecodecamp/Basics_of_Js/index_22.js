@@ -19,7 +19,7 @@ function findGreater(a, b) {
 
   //This can be re-written using the conditional operator:
   function findGreater(a, b) {
-    return a > b ?/*works like if*/ */ "a is greater" : /*works like else*/"b is greater or equal";
+    return a > b ?/*works like if*/ "a is greater" : /*works like else*/"b is greater or equal";
   }
 
   //Use Multiple Conditional (Ternary) Operators+
