@@ -19,5 +19,5 @@ function howMany(...args){
     return "You have passed " + args.length + " arguments.";
 }
 
-console.log(howMany(10,5,9));
-console.log(howMany("string", null ,3.85, [1,2,3], {}));
+console.log(howMany(10,5,9)); // returns 3 arguments
+console.log(howMany("string", null ,3.85, [1,2,3], {})); // returns 5 arguments
