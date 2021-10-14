@@ -65,7 +65,25 @@ console.log(x);
 //=>split()
 
  
+// this method returns an array
+
+/* 
+let str = "ozkan  condek 25 years old"; // if i use more space character, split accepts it as a normal character and ads to list.
+let a = str.split(" ");
+let b = str.split(); // makes an one element array
+console.log(b); */
+
+// => substr method
+
+/* let str = "ozkan condek 25 years old";
+let a = str.substr(1,5); // 5th index not included. 5 is quantity. Start from 1th index and count 5 times but do not accept 5th ones
+console.log(a); */
 
 
+// => substring method
 
+/* let str = "ozkan condek 25 years old";
+let a = str.substring(1,5); // 1 to 5th. End index not included
+console.log(a); */
 
+ 
