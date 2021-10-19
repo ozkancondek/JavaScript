@@ -15,10 +15,19 @@ eventListeners();
 
 function eventListeners(){ // all event listeners
     form.addEventListener("submit",addTodo);
+//5-If i reload the page, todo Lists wont appear. So, i need to get them from local storage
+    document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
 
 }
 
-
+function loadAllTodosToUI(){
+    let todos = getTodosFromStorage(); // i got my array from localstorage
+    //now, add each key to cardbody 2
+    todos.forEach(todo => {
+        addTodoToUI(todo)
+        
+    });
+}
 
 function addTodo(e){
     const newTodo = todoInput.value.trim(); //delete spaces
