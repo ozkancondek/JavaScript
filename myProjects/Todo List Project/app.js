@@ -18,16 +18,49 @@ function eventListeners(){ // all event listeners
 
 }
 
+
+
 function addTodo(e){
     const newTodo = todoInput.value.trim(); //delete spaces
+    
+    if (newTodo ===""){
+        showAlert("danger","Please enter a Todo!");
+    }else{
+        addTodoToUI(newTodo);
+        showAlert("success","Todo added successfully")
+    }
 
-    addTodoToUI(newTodo);
+     
 
     
 
 
     e.preventDefault();
 }
+
+
+function showAlert(type,message){
+    /* <div class="alert alert-danger" role="alert">
+                        Change a few things and submit again!
+                      </div> */
+    const alert = document.createElement("div");
+
+    alert.className = `alert alert-${type}`
+
+    alert.textContent=message;
+
+    //display it in cardbody
+
+    firstCardBody.appendChild(alert);
+
+    //remove alert after display with setTimaout
+
+    setTimeout(function(){ 
+        alert.remove();
+
+    },2000) // 1000 = 1second 
+}
+
 
 function addTodoToUI(newTodo){ // gets string and adds to UI as list item
 
