@@ -27,6 +27,8 @@ function addTodo(e){
         showAlert("danger","Please enter a Todo!");
     }else{
         addTodoToUI(newTodo);
+ //4-add toDo to local storaage
+        addTodoToStorage(newTodo);       
         showAlert("success","Todo added successfully")
     }
 
@@ -39,6 +41,26 @@ function addTodo(e){
 }
 
 
+function getTodosFromStorage(){ // get todos from storage
+    let todos;
+    if (localStorage.getItem("todos") === null){
+        todos = [];
+    }else{
+        todos = JSON.parse(localStorage.getItem("todos")); // return to array
+    }
+    return todos;
+
+}
+
+function addTodoToStorage(newTodo){
+    
+    let todos = getTodosFromStorage();
+    todos.push(newTodo);
+    localStorage.setItem("todos", JSON.stringify(todos)) // update keys
+}
+
+
+//3-add alert function if input area is empty or filled
 function showAlert(type,message){
     /* <div class="alert alert-danger" role="alert">
                         Change a few things and submit again!
