@@ -25,20 +25,34 @@ function eventListeners(){ // all event listeners
 function deleteTodo(e){
      if(e.target.className == "fa fa-remove"){ // cross icon 
         e.target.parentElement.parentElement.remove(); //reach i=>a=>li
+        deleteTodoFromStorage(e.target.parentElement.parentElement.textContent)
         showAlert("success","Todo removed"); //but they are still in local storage.If i reload the page, ican see
         
 
      }
 }
 
+//7-Delete todo from local storage
+
+function deleteTodoFromStorage(todo){
+    let todos = getTodosFromStorage(); // get todos from storage
+    todos.forEach(todo => {
+
+    })
+
+}
 
 function loadAllTodosToUI(){
     let todos = getTodosFromStorage(); // i got my array from localstorage
     //now, add each key to cardbody 2
-    todos.forEach(todo => {
-        addTodoToUI(todo)
+    todos.forEach((todo,index) => {
+        if (todo = deleteTodo){
+
+            todos.splice(index,1); // delete from array
+        }
         
     });
+    localStorage.setItem("todos",JSON.stringify(todos))
 }
 
 function addTodo(e){
@@ -51,6 +65,7 @@ function addTodo(e){
  //4-add toDo to local storaage
         addTodoToStorage(newTodo);       
         showAlert("success","Todo added successfully")
+         
     }
 
      
