@@ -17,8 +17,20 @@ function eventListeners(){ // all event listeners
     form.addEventListener("submit",addTodo);
 //5-If i reload the page, todo Lists wont appear. So, i need to get them from local storage
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
+//6-delete todo if user click cross icon
+    secondCardBody.addEventListener("click",deleteTodo);
 
 }
+
+function deleteTodo(e){
+     if(e.target.className == "fa fa-remove"){ // cross icon 
+        e.target.parentElement.parentElement.remove(); //reach i=>a=>li
+        showAlert("success","Todo removed"); //but they are still in local storage.If i reload the page, ican see
+        
+
+     }
+}
+
 
 function loadAllTodosToUI(){
     let todos = getTodosFromStorage(); // i got my array from localstorage
