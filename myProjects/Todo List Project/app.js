@@ -21,8 +21,27 @@ function eventListeners(){ // all event listeners
     secondCardBody.addEventListener("click",deleteTodo);
 //8-Filter inputs
     filter.addEventListener("keyup",filterTodos);
+//9-Clear all tasks
+    clearButton.addEventListener("click",clearAllTodos);
 
 }
+
+
+function clearAllTodos(e){
+    if(confirm("Are you sure to delete all templates!")){
+        //todoList.innerHTML =""; one of option but slow
+
+        while(todoList.firstElementChild != null){ // until thre is no child element
+            todoList.removeChild(todoList.firstElementChild);
+        }
+
+        localStorage.removeItem("todos");
+    }
+
+}
+
+
+
 
 function filterTodos(e){
     const filterValue = e.target.value.toLowerCase();
@@ -76,7 +95,12 @@ function addTodo(e){
     
     if (newTodo ===""){
         showAlert("danger","Please enter a Todo!");
-    }else{
+    }
+    else if(getTodosFromStorage().includes(newTodo)){ // user cant declare the same todo
+        showAlert("danger","its aldready declared!")
+    }
+    
+    else{
         addTodoToUI(newTodo);
  //4-add toDo to local storaage
         addTodoToStorage(newTodo);       
