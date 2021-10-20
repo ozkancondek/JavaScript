@@ -19,6 +19,22 @@ function eventListeners(){ // all event listeners
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
 //6-delete todo if user click cross icon
     secondCardBody.addEventListener("click",deleteTodo);
+//8-Filter inputs
+    filter.addEventListener("keyup",filterTodos);
+
+}
+
+function filterTodos(e){
+    const filterValue = e.target.value.toLowerCase();
+    const listItems = document.querySelectorAll(".list-group-item"); // choose all li s 
+    listItems.forEach(function(listItem){
+        const text = listItem.textContent.toLowerCase();
+        if(text.indexOf(filterValue) === -1){
+            listItem.setAttribute("style","display:none !important");
+        }else{
+            listItem.setAttribute("style","display:block")
+        }
+    })
 
 }
 
