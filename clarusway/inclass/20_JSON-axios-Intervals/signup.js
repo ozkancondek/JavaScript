@@ -30,40 +30,73 @@ submitBtn.addEventListener("click", (e) => {
   apiRegister();
 });
 
+//promisses
+
+// const apiRegister = async () => {
+//   //create an object
+//   const bodyData = {
+//     email: email.value,
+//     password: password.value,
+//   };
+//   //console.log(bodyData);
+//   //console.log(JSON.stringify(bodyData)); // i need to version in api  documentation
+//   showLoadingg();
+
+//   fetch("https://reqres.in/api/register", {
+//     method: "POST",
+//     body: JSON.stringify(bodyData),
+//     headers: { "Content-Type": "application/json" }, // methodtype
+//   })
+//     .then((response) => response.json())
+//     .then((jsonResponse) => {
+//       console.log(jsonResponse);
+//       if (jsonResponse.id == undefined) {
+//         // or jsonResponse.token
+//         removeLoadingg();
+//         alert(jsonResponse.error);
+//       } else {
+//         removeLoadingg();
+//         localStorage.setItem("tokenKey", jsonResponse.token);
+//         localStorage.setItem(
+//           "tokenKeyEncrypted",
+//           EncryptStringAES(jsonResponse.token)
+//         ); // send token to local storage
+//         // window.location.href = "userList.html"; // return to new page
+//       }
+//     })
+//     .catch((err) => {
+//       removeLoadingg();
+//       alert(err);
+//     });
+// };
+
+//axios
+
 const apiRegister = async () => {
-  //create an object
   const bodyData = {
     email: email.value,
     password: password.value,
   };
-  //console.log(bodyData);
-  //console.log(JSON.stringify(bodyData)); // i need to version in api  documentation
   showLoadingg();
 
-  fetch("https://reqres.in/api/register", {
-    method: "POST",
-    body: JSON.stringify(bodyData),
-    headers: { "Content-Type": "application/json" }, // methodtype
+  const response = await axios({
+    url: "https://reqres.in/api/register",
+    data: bodyData,
+    method: "post",
   })
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      console.log(jsonResponse);
-      if (jsonResponse.id == undefined) {
-        // or jsonResponse.token
-        removeLoadingg();
-        alert(jsonResponse.error);
-      } else {
-        removeLoadingg();
-        localStorage.setItem("tokenKey", jsonResponse.token);
-        localStorage.setItem(
-          "tokenKeyEncrypted",
-          EncryptStringAES(jsonResponse.token)
-        ); // send token to local storage
-        // window.location.href = "userList.html"; // return to new page
-      }
-    })
+    .then((response) => response.data)
     .catch((err) => {
-      removeLoadingg();
       alert(err);
-    });
+      removeLoadingg();
+    }); // i dont need to return it json
+  if (response.token == undefined) {
+    // or jsonResponse.token
+    removeLoadingg();
+    alert(response.error);
+  } else {
+    removeLoadingg();
+    localStorage.setItem("tokenKey", response.token);
+    localStorage.setItem("tokenKeyEncrypted", EncryptStringAES(response.token));
+    removeLoadingg();
+  }
 };
