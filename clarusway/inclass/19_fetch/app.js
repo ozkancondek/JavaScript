@@ -20,14 +20,16 @@ const getCountryDataXHR = (country, className = "") => {
 
 // getCountryDataXHR('turkey');
 
-getCountryDataXHR("italy");
-getCountryDataXHR("turkey");
-getCountryDataXHR("france");
+// getCountryDataXHR("italy");
+// getCountryDataXHR("turkey");
+// getCountryDataXHR("france");
 
 const renderCountry = (data, className = "") => {
+  //data is a parameter and type is object
+  //// function to add pulled data into html page
   const {
-    name: { common: countryName },
-    region,
+    name: { common: countryName }, //data.name.common
+    region, //data.region
     capital,
     flags: { svg: countryFlag },
     population,
@@ -59,3 +61,51 @@ const renderCountry = (data, className = "") => {
   countryElm.insertAdjacentHTML("beforeend", htmlContent);
   countryElm.style.opacity = 1;
 };
+
+const showCountryProm = (countryName) => {
+  //i am gonna get a response from network side but, not an exact form of desired object
+  fetch("https://restcountries.com/v3.1/name/" + countryName)
+    .then((x) => console.log(x)) //return me response
+    .catch((err) => console.log(err)); // return me error if there a promblem is(e.g 404 (not found))
+
+  //to get an object, i need to return it to json object
+
+  fetch("https://restcountries.com/v3.1/name/" + countryName)
+    .then((x) => {
+      const resultObject = x.json();
+      return resultObject;
+    }) // first then returns a promisse
+    .then((y) => {
+      const [countryData] = y; // save it as an array variable
+      renderCountry(countryData); //give this array as an argument to
+    }) //second then catches object   // .then((y) => console.log(y[0].name.common))
+    .catch((err) => console.log(err.message)); //return message element from err object
+
+  //The main point here is, getting API file in an object shape
+};
+
+// showCountryProm("turkey");
+
+//same code structure with async await
+
+const getCountryData = async (countryName) => {
+  try {
+    const response = await fetch(
+      "https://restcountries.com/v3.1/name/" + countryName
+    );
+    if (!response.ok) throw new Error("Something get wrong" + response.status); // this message works if something wrong with returned object
+    const data = await response.json();
+    const [countryDataObject] = data;
+    return countryDataObject;
+  } catch (error) {
+    //this error works if fetch has a problem
+    console.log(error.message);
+  }
+};
+
+const showCountry = async (countryName) => {
+  const countryDataObject = await getCountryData(countryName);
+  renderCountry(countryDataObject);
+};
+
+showCountry("nederland");
